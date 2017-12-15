@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 showCustomNotification(this);
                 break;
             case R.id.button04:
+
                 showBigNotification();
                 break;
         }
