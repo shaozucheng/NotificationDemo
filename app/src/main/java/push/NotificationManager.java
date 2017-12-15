@@ -3,6 +3,7 @@ package push;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.widget.RemoteViews;
@@ -101,7 +102,41 @@ public class NotificationManager {
         bigTextStyle.setBigContentTitle(title)
                 .setSummaryText(summaryText)
                 .bigText(bigText);
-        mBuilder.setStyle(bigTextStyle); //设置大文本样式
+        mBuilder.setStyle(bigTextStyle);
+
+        Notification notification = mBuilder.build();
+        notification.flags = Notification.FLAG_AUTO_CANCEL;
+        notification.defaults |= Notification.DEFAULT_SOUND;//默认声音
+        notification.defaults |= Notification.DEFAULT_LIGHTS;//默认闪烁
+        android.app.NotificationManager notificationManager = (android.app.NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            notificationManager.notify(noticeId, notification);
+        }
+    }
+
+    /**
+     * 设置BigPicture通知
+     *
+     * @param ctx         上下文
+     * @param noticeId    通知id
+     * @param title       标题
+     * @param summaryText 摘要
+     * @param intent      PendingIntent
+     */
+    public static void showBigPictureNotify(Context ctx, int noticeId, String title, String summaryText, PendingIntent intent) {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ctx, null);
+        mBuilder.setLargeIcon(BitmapFactory.decodeResource(ctx.getResources(), R.mipmap.icon_picture));
+        mBuilder.setContentIntent(intent);
+        mBuilder.setAutoCancel(true);
+        mBuilder.setTicker(title);
+        mBuilder.setPriority(NotificationManagerCompat.IMPORTANCE_HIGH);
+
+        NotificationCompat.BigPictureStyle bigTextStyle = new NotificationCompat.BigPictureStyle();
+        bigTextStyle.setBigContentTitle(title)
+                .setSummaryText(summaryText)
+                .bigLargeIcon(BitmapFactory.decodeResource(ctx.getResources(), R.mipmap.icon_picture))
+                .bigPicture(BitmapFactory.decodeResource(ctx.getResources(), R.mipmap.bg_big_picture));
+        mBuilder.setStyle(bigTextStyle);
 
         Notification notification = mBuilder.build();
         notification.flags = Notification.FLAG_AUTO_CANCEL;
@@ -117,7 +152,7 @@ public class NotificationManager {
      * 展示bigTest 通知
      *
      * @param ctx         上下文
-     * @param noticeId    通知id
+     * @param noticeId    通知id 必须小于 默认值（100000）
      * @param title       标题
      * @param summaryText 摘要
      * @param bigText     内容
@@ -155,7 +190,7 @@ public class NotificationManager {
      * 自定义通知 noticeId 时调用该方法
      *
      * @param ctx      上下文对象
-     * @param noticeId 自定义通知id 必须小于 默认值（100000）
+     * @param noticeId 通知id 必须小于 默认值（100000）
      * @param title    通知标题
      * @param message  通知内容
      * @param intent   PendingIntent对象
@@ -186,7 +221,7 @@ public class NotificationManager {
      *
      * @param ctx         上下文
      * @param remoteViews 自定义布局
-     * @param noticeId    通知id
+     * @param noticeId    自定义通知id 必须小于 默认值（100000）
      * @param ticker      ticker
      * @param intent      PendingIntent对象
      */

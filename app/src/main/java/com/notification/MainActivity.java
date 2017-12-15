@@ -50,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
                 showBigTextNotification();
                 break;
             case R.id.button05://bigPicture 通知
+                Intent resultIntent = new Intent(this, SecondActivity.class);
+                resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                PendingIntent resultPendingIntent = PendingIntent.getActivity(this, (new Random().nextInt(1000)),
+                        resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                NotificationManager.showBigPictureNotify(this, 0, "标题", "摘要", resultPendingIntent);
                 break;
         }
     }
