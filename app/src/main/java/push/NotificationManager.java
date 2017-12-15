@@ -10,6 +10,8 @@ import android.widget.RemoteViews;
 
 import com.notification.R;
 
+import java.util.List;
+
 
 /**
  * 作者： chengcheng
@@ -123,7 +125,7 @@ public class NotificationManager {
      * @param summaryText 摘要
      * @param intent      PendingIntent
      */
-    public static void showBigPictureNotify(Context ctx, int noticeId, String title, String summaryText, PendingIntent intent) {
+    private static void showBigPictureNotify(Context ctx, int noticeId, String title, String summaryText, PendingIntent intent) {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ctx, null);
         mBuilder.setLargeIcon(BitmapFactory.decodeResource(ctx.getResources(), R.mipmap.icon_picture));
         mBuilder.setContentIntent(intent);
@@ -147,6 +149,89 @@ public class NotificationManager {
             notificationManager.notify(noticeId, notification);
         }
     }
+
+
+    private static void showInboxNotify(Context ctx, int noticeId, String title, String summaryText, List<String> lineList, PendingIntent intent) {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ctx, null);
+        mBuilder.setLargeIcon(BitmapFactory.decodeResource(ctx.getResources(), R.mipmap.icon_picture));
+        mBuilder.setContentIntent(intent);
+        mBuilder.setAutoCancel(true);
+        mBuilder.setTicker(title);
+        mBuilder.setPriority(NotificationManagerCompat.IMPORTANCE_HIGH);
+
+        NotificationCompat.InboxStyle bigTextStyle = new NotificationCompat.InboxStyle();
+        bigTextStyle.setBigContentTitle(title)
+                .setSummaryText(summaryText);
+        for (int i = 0; i < lineList.size(); i++) {
+            bigTextStyle.addLine(lineList.get(i));
+        }
+        mBuilder.setStyle(bigTextStyle);
+
+        Notification notification = mBuilder.build();
+        notification.flags = Notification.FLAG_AUTO_CANCEL;
+        notification.defaults |= Notification.DEFAULT_SOUND;//默认声音
+        notification.defaults |= Notification.DEFAULT_LIGHTS;//默认闪烁
+        android.app.NotificationManager notificationManager = (android.app.NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            notificationManager.notify(noticeId, notification);
+        }
+    }
+
+
+    /**
+     * 展示InboxStyle 通知
+     *
+     * @param ctx         上下文
+     * @param noticeId    通知id
+     * @param title       标题
+     * @param summaryText 摘要
+     * @param lineList    要展示的多行内容
+     * @param intent      PendingIntent
+     */
+    public static void showInboxNotification(Context ctx, int noticeId, String title, String summaryText, List<String> lineList, PendingIntent intent) {
+        showInboxNotify(ctx, noticeId, title, summaryText, lineList, intent);
+    }
+
+
+    /**
+     * 展示InboxStyle 通知
+     *
+     * @param ctx         上下文
+     * @param title       标题
+     * @param summaryText 摘要
+     * @param lineList    要展示的多行内容
+     * @param intent      PendingIntent
+     */
+    public static void showInboxNotification(Context ctx, String title, String summaryText, List<String> lineList, PendingIntent intent) {
+        showInboxNotify(ctx, ++NOTICE_ID_DEFAULT, title, summaryText, lineList, intent);
+    }
+
+
+    /**
+     * 展示bigPicture 通知
+     *
+     * @param ctx         上下文
+     * @param noticeId    通知id
+     * @param title       标题
+     * @param summaryText 摘要
+     * @param intent      PendingIntent
+     */
+    public static void showBigPictureNotification(Context ctx, int noticeId, String title, String summaryText, PendingIntent intent) {
+        showBigPictureNotify(ctx, noticeId, title, summaryText, intent);
+    }
+
+    /**
+     * 展示bigPicture 通知
+     *
+     * @param ctx         上下文 通知id
+     * @param title       标题
+     * @param summaryText 摘要
+     * @param intent      PendingIntent
+     */
+    public static void showBigPictureNotification(Context ctx, String title, String summaryText, PendingIntent intent) {
+        showBigPictureNotify(ctx, ++NOTICE_ID_DEFAULT, title, summaryText, intent);
+    }
+
 
     /**
      * 展示bigTest 通知

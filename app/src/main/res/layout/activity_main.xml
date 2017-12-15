@@ -55,7 +55,7 @@
             android:background="#6c8736"
             android:gravity="center"
             android:padding="12dp"
-            android:text="bigText通知"
+            android:text="bigTextStyle通知"
             android:textColor="#ffffff"/>
 
         <TextView
@@ -66,7 +66,18 @@
             android:background="#423d83"
             android:gravity="center"
             android:padding="12dp"
-            android:text="bigPicture通知"
+            android:text="bigPictureStyle通知"
+            android:textColor="#ffffff"/>
+
+        <TextView
+            android:id="@+id/button06"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="#8f7b33"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="InboxStyle通知"
             android:textColor="#ffffff"/>
 
     </LinearLayout>

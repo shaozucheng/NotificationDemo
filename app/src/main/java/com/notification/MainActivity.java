@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick({R.id.button01, R.id.button02,
             R.id.button03, R.id.button04,
-            R.id.button05})
+            R.id.button05, R.id.button06})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button01://第一种方式
@@ -50,13 +52,39 @@ public class MainActivity extends AppCompatActivity {
                 showBigTextNotification();
                 break;
             case R.id.button05://bigPicture 通知
-                Intent resultIntent = new Intent(this, SecondActivity.class);
-                resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                PendingIntent resultPendingIntent = PendingIntent.getActivity(this, (new Random().nextInt(1000)),
-                        resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                NotificationManager.showBigPictureNotify(this, 0, "标题", "摘要", resultPendingIntent);
+                showBigPictureNotification();
+                break;
+            case R.id.button06://inboxStyle 通知
+                showInboxNotification();
                 break;
         }
+    }
+
+
+    /**
+     * 展示InboxStyle 通知
+     */
+    private void showInboxNotification() {
+        Intent resultIntent = new Intent(this, SecondActivity.class);
+        resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, (new Random().nextInt(1000)),
+                resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        List<String> lineList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            lineList.add("wwwwwwwwww" + i);
+        }
+        NotificationManager.showInboxNotification(this, 0, "标题标题", "摘要摘要", lineList, resultPendingIntent);
+    }
+
+    /**
+     * 展示bigPicture 通知
+     */
+    private void showBigPictureNotification() {
+        Intent resultIntent = new Intent(this, SecondActivity.class);
+        resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, (new Random().nextInt(1000)),
+                resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationManager.showBigPictureNotification(this, 0, "标题", "摘要", resultPendingIntent);
     }
 
     /**
