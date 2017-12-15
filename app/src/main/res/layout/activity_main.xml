@@ -1,58 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.notification.MainActivity">
 
-
-    <TextView
-        android:id="@+id/button01"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:background="#ca4716"
-        android:gravity="center"
-        android:padding="12dp"
-        android:text="第一种方式的通知"
-        android:textColor="#ffffff"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/button01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:background="#ca4716"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="第一种方式的通知"
+            android:textColor="#ffffff"/>
 
 
-    <TextView
-        android:id="@+id/button02"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:background="#256e25"
-        android:gravity="center"
-        android:padding="12dp"
-        android:text="第二种方式的通知"
-        android:textColor="#ffffff"/>
+        <TextView
+            android:id="@+id/button02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="#256e25"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="第二种方式的通知"
+            android:textColor="#ffffff"/>
 
 
-    <TextView
-        android:id="@+id/button03"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:background="#942e94"
-        android:gravity="center"
-        android:padding="12dp"
-        android:text="自定义view通知"
-        android:textColor="#ffffff"/>
+        <TextView
+            android:id="@+id/button03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="#942e94"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="自定义view通知"
+            android:textColor="#ffffff"/>
 
-    <TextView
-        android:id="@+id/button04"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:background="#5c8014"
-        android:gravity="center"
-        android:padding="12dp"
-        android:text="通知"
-        android:textColor="#ffffff"/>
+        <TextView
+            android:id="@+id/button04"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="#6c8736"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="bigText通知"
+            android:textColor="#ffffff"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/button05"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="#423d83"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="bigPicture通知"
+            android:textColor="#ffffff"/>
+
+    </LinearLayout>
+</ScrollView>

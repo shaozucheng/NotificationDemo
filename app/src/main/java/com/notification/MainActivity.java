@@ -1,11 +1,9 @@
 package com.notification;
 
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -34,7 +32,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.button01, R.id.button02, R.id.button03, R.id.button04})
+    @OnClick({R.id.button01, R.id.button02,
+            R.id.button03, R.id.button04,
+            R.id.button05})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button01://第一种方式
@@ -46,27 +46,25 @@ public class MainActivity extends AppCompatActivity {
             case R.id.button03://自定义view的方式
                 showCustomNotification(this);
                 break;
-            case R.id.button04:
-
-                showBigNotification();
+            case R.id.button04://bigTest通知
+                showBigTextNotification();
+                break;
+            case R.id.button05://bigPicture 通知
                 break;
         }
     }
 
-
-    private void showBigNotification(){
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,null)
-                        .setSmallIcon(R.mipmap.ic_launcher_round)
-                        .setContentTitle("标题")
-                        .setContentText("大标题内容")
-                        .setDefaults(Notification.DEFAULT_ALL)
-                        // 该方法在Android 4.1之前会被忽略
-                        .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText("大标题"));
-                        //添加Action Button
-
-
+    /**
+     * 展示bigText 通知
+     */
+    private void showBigTextNotification() {
+        Intent resultIntent = new Intent(this, SecondActivity.class);
+        resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, (new Random().nextInt(1000)),
+                resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationManager.showBigTextNotification(this, "标题", "摘要摘要", "内容内蓉", resultPendingIntent);
     }
+
 
     /**
      * 第一种方式，普通通知

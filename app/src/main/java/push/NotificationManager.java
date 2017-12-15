@@ -80,6 +80,66 @@ public class NotificationManager {
 
 
     /**
+     * 设置 BigText公告
+     *
+     * @param ctx         上下文
+     * @param noticeId    通知id
+     * @param title       标题
+     * @param summaryText 摘要
+     * @param bigText     内容
+     * @param intent      PendingIntent
+     */
+    private static void showBigTextNotify(Context ctx, int noticeId, String title, String summaryText, String bigText, PendingIntent intent) {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ctx, null);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        mBuilder.setContentIntent(intent);
+        mBuilder.setAutoCancel(true);
+        mBuilder.setTicker(title);
+        mBuilder.setPriority(NotificationManagerCompat.IMPORTANCE_HIGH);
+
+        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+        bigTextStyle.setBigContentTitle(title)
+                .setSummaryText(summaryText)
+                .bigText(bigText);
+        mBuilder.setStyle(bigTextStyle); //设置大文本样式
+
+        Notification notification = mBuilder.build();
+        notification.flags = Notification.FLAG_AUTO_CANCEL;
+        notification.defaults |= Notification.DEFAULT_SOUND;//默认声音
+        notification.defaults |= Notification.DEFAULT_LIGHTS;//默认闪烁
+        android.app.NotificationManager notificationManager = (android.app.NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            notificationManager.notify(noticeId, notification);
+        }
+    }
+
+    /**
+     * 展示bigTest 通知
+     *
+     * @param ctx         上下文
+     * @param noticeId    通知id
+     * @param title       标题
+     * @param summaryText 摘要
+     * @param bigText     内容
+     * @param intent      PendingIntent
+     */
+    public static void showBigTextNotification(Context ctx, int noticeId, String title, String summaryText, String bigText, PendingIntent intent) {
+        showBigTextNotify(ctx, noticeId, title, summaryText, bigText, intent);
+    }
+
+    /**
+     * @param ctx         上下文对象
+     * @param title       标题
+     * @param summaryText 摘要
+     * @param bigText     内容
+     * @param intent      PendingIntent
+     */
+    public static void showBigTextNotification(Context ctx, String title, String summaryText, String bigText, PendingIntent intent) {
+        showBigTextNotify(ctx, ++NOTICE_ID_DEFAULT, title, summaryText, bigText, intent);
+    }
+
+
+    /**
      * 展示通知默认方法
      *
      * @param ctx     上下文对象
