@@ -127,6 +127,7 @@ public class NotificationManager {
      */
     private static void showBigPictureNotify(Context ctx, int noticeId, String title, String summaryText, PendingIntent intent) {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ctx, null);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
         mBuilder.setLargeIcon(BitmapFactory.decodeResource(ctx.getResources(), R.mipmap.icon_picture));
         mBuilder.setContentIntent(intent);
         mBuilder.setAutoCancel(true);
@@ -153,6 +154,7 @@ public class NotificationManager {
 
     private static void showInboxNotify(Context ctx, int noticeId, String title, String summaryText, List<String> lineList, PendingIntent intent) {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ctx, null);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
         mBuilder.setLargeIcon(BitmapFactory.decodeResource(ctx.getResources(), R.mipmap.icon_picture));
         mBuilder.setContentIntent(intent);
         mBuilder.setAutoCancel(true);

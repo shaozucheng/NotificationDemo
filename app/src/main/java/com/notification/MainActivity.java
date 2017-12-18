@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 5; i++) {
             lineList.add("wwwwwwwwww" + i);
         }
-        NotificationManager.showInboxNotification(this, 0, "标题标题", "摘要摘要", lineList, resultPendingIntent);
+        NotificationManager.showInboxNotification(this, "标题标题", "InboxStyle形式的通知", lineList, resultPendingIntent);
     }
 
     /**
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, (new Random().nextInt(1000)),
                 resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationManager.showBigPictureNotification(this, 0, "标题", "摘要", resultPendingIntent);
+        NotificationManager.showBigPictureNotification(this, "标题", "bigPictureStyle形式的通知", resultPendingIntent);
     }
 
     /**
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, (new Random().nextInt(1000)),
                 resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationManager.showBigTextNotification(this, "标题", "摘要摘要", "内容内蓉", resultPendingIntent);
+        NotificationManager.showBigTextNotification(this, "标题", "摘要摘要", "bigTextStyle通知", resultPendingIntent);
     }
 
 
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, (new Random().nextInt(1000)),
                 resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationManager.showNotification(this, getString(R.string.app_name),
-                "alert 消息", resultPendingIntent);
+                "普通通知", resultPendingIntent);
     }
 
     /**
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         NotificationManager.showNotification(this, getString(R.string.app_name),
-                "alert 消息", resultPendingIntent);
+                "第二种方式的普通通知", resultPendingIntent);
 
     }
 
