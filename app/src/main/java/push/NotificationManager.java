@@ -83,7 +83,7 @@ public class NotificationManager {
 
 
     /**
-     * 设置 BigText公告
+     * 设置 BigTextStyle通知
      *
      * @param ctx         上下文
      * @param noticeId    通知id
@@ -117,7 +117,7 @@ public class NotificationManager {
     }
 
     /**
-     * 设置BigPicture通知
+     * 设置BigPictureStyle通知
      *
      * @param ctx         上下文
      * @param noticeId    通知id
@@ -152,6 +152,16 @@ public class NotificationManager {
     }
 
 
+    /**
+     * 展示多行通知
+     *
+     * @param ctx         上下文
+     * @param noticeId    通知id
+     * @param title       标题
+     * @param summaryText 摘要
+     * @param lineList    需要展示多行数据的集合
+     * @param intent      PendingIntent
+     */
     private static void showInboxNotify(Context ctx, int noticeId, String title, String summaryText, List<String> lineList, PendingIntent intent) {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ctx, null);
         mBuilder.setSmallIcon(R.mipmap.ic_launcher);

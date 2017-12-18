@@ -10,7 +10,11 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="第二个activity"/>
+        android:layout_height="match_parent"
+        android:background="#84506f"
+        android:gravity="center"
+        android:text="第二个activity"
+        android:textColor="#ffffff"
+        android:textSize="16sp"/>
 
 </android.support.constraint.ConstraintLayout>
