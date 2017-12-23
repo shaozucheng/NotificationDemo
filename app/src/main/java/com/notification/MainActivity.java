@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, (new Random().nextInt(1000)),
                 resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationManager.showNotification(this, getString(R.string.app_name),
-                "普通通知", resultPendingIntent);
+                "浮动通知", resultPendingIntent);
     }
 
     /**

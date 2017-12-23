@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.widget.RemoteViews;
@@ -42,15 +43,20 @@ public class NotificationManager {
         mBuilder.setContentIntent(intent);
         mBuilder.setAutoCancel(true);
         mBuilder.setTicker(title);
-        mBuilder.setPriority(NotificationManagerCompat.IMPORTANCE_HIGH);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mBuilder.setFullScreenIntent(intent, false);//Android5.0以后使用，浮动通知 ,使用时注意要判断sdk
+            mBuilder.setVisibility(NotificationCompat.VISIBILITY_SECRET);//通知的显示等级
+        }
+        mBuilder.setPriority(NotificationManagerCompat.IMPORTANCE_HIGH);//设置通知的优先级
         Notification notification = mBuilder.build();
-        notification.flags = Notification.FLAG_AUTO_CANCEL;
+        notification.flags = Notification.FLAG_AUTO_CANCEL;//当通知被用户点击之后会自动被清除(cancel)
         notification.defaults |= Notification.DEFAULT_SOUND;//默认声音
         notification.defaults |= Notification.DEFAULT_LIGHTS;//默认闪烁
         android.app.NotificationManager notificationManager = (android.app.NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null) {
             notificationManager.notify(noticeId, notification);
         }
+
     }
 
 
