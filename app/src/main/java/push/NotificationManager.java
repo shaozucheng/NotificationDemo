@@ -43,10 +43,10 @@ public class NotificationManager {
         mBuilder.setContentIntent(intent);
         mBuilder.setAutoCancel(true);
         mBuilder.setTicker(title);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mBuilder.setFullScreenIntent(intent, false);//Android5.0以后使用，浮动通知 ,使用时注意要判断sdk
-            mBuilder.setVisibility(NotificationCompat.VISIBILITY_SECRET);//通知的显示等级
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            mBuilder.setFullScreenIntent(intent, false);//Android5.0以后使用，浮动通知 ,使用时注意要判断sdk
+//            mBuilder.setVisibility(NotificationCompat.VISIBILITY_SECRET);//通知的显示等级
+//        }
         mBuilder.setPriority(NotificationManagerCompat.IMPORTANCE_HIGH);//设置通知的优先级
         Notification notification = mBuilder.build();
         notification.flags = Notification.FLAG_AUTO_CANCEL;//当通知被用户点击之后会自动被清除(cancel)
