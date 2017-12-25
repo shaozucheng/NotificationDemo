@@ -39,8 +39,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button01://第一种方式
-                //  showNotification();
-                showCustomNotificationButton();
+                showNotification();
                 break;
             case R.id.button02://第二种方式
                 showNotion();
@@ -56,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.button06://inboxStyle 通知
                 showInboxNotification();
+                break;
+            case R.id.button07://自定义带按钮的通知
+                showCustomNotificationButton();
                 break;
         }
     }

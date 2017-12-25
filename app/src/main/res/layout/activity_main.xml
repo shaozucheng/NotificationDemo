@@ -80,5 +80,16 @@
             android:text="InboxStyle通知"
             android:textColor="#ffffff"/>
 
+        <TextView
+            android:id="@+id/button07"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="#1d6c84"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="自定义带按钮的通知"
+            android:textColor="#ffffff"/>
+
     </LinearLayout>
 </ScrollView>
