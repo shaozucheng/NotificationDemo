@@ -39,13 +39,14 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button01://第一种方式
-                showNotification();
+                //  showNotification();
+                showCustomNotificationButton();
                 break;
             case R.id.button02://第二种方式
                 showNotion();
                 break;
             case R.id.button03://自定义view的方式
-                showCustomNotification(this);
+                showCustomNotification();
                 break;
             case R.id.button04://bigTest通知
                 showBigTextNotification();
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, (new Random().nextInt(1000)),
                 resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationManager.showNotification(this, getString(R.string.app_name),
-                "浮动通知", resultPendingIntent);
+                "普通通知", resultPendingIntent);
     }
 
     /**
@@ -131,24 +132,52 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 自定义view 的普通通知
      *
-     * @param context
+     * @param
      */
-    private static void showCustomNotification(Context context) {
+    private void showCustomNotification() {
         //自定义显示布局
-        RemoteViews contentViews = new RemoteViews(context.getPackageName(), R.layout.custom_notification);
+        RemoteViews contentViews = new RemoteViews(this.getPackageName(), R.layout.custom_notification);
+        //通过控件的Id设置属性
+        contentViews.setImageViewResource(R.id.ImageView, R.mipmap.ic_launcher);
+        contentViews.setTextViewText(R.id.title, "自定义通知标题");
+        contentViews.setTextViewText(R.id.content, "自定义通知内容");
+        Intent resultIntent = new Intent(this, SecondActivity.class);
+        resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //(new Random().nextInt(1000) 这个地方这么写的原因，是部分低版本的不能跳转，比如说小米3
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, (new Random().nextInt(1000)),
+                resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationManager.showCustomNotification(this, contentViews, "ticker", resultPendingIntent);
+    }
+
+
+    /**
+     * 带按钮的自定义通知
+     *
+     * @param
+     */
+    private void showCustomNotificationButton() {
+        //自定义显示布局
+        RemoteViews contentViews = new RemoteViews(this.getPackageName(), R.layout.custom_notification_button);
         //通过控件的Id设置属性
         contentViews.setImageViewResource(R.id.ImageView, R.mipmap.ic_launcher);
         contentViews.setTextViewText(R.id.title, "自定义通知标题");
         contentViews.setTextViewText(R.id.content, "自定义通知内容");
 
-        Intent resultIntent = new Intent(context, SecondActivity.class);
+
+        Intent cancelIntent = new Intent(this, NotificationServices.class);
+        cancelIntent.putExtra("key_cancel", "cancel");
+        cancelIntent.putExtra("key_conform", "confirm");
+        PendingIntent cancelPendingIntent = PendingIntent.getService(this, 1, cancelIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        contentViews.setOnClickPendingIntent(R.id.cancel_button, cancelPendingIntent);
+        contentViews.setOnClickPendingIntent(R.id.confirm_button, cancelPendingIntent);
+
+        Intent resultIntent = new Intent(this, SecondActivity.class);
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         //(new Random().nextInt(1000) 这个地方这么写的原因，是部分低版本的不能跳转，比如说小米3
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, (new Random().nextInt(1000)),
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, (new Random().nextInt(1000)),
                 resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        NotificationManager.showCustomNotification(context, contentViews, "ticker", resultPendingIntent);
-
+        NotificationManager.showCustomNotification(this, contentViews, "ticker", resultPendingIntent);
     }
 
 
