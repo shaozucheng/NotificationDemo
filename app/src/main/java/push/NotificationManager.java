@@ -210,7 +210,7 @@ public class NotificationManager {
         mBuilder.setContentTitle(title);
         mBuilder.setContentText(message);
         mBuilder.setContentIntent(intent);
-        mBuilder.setAutoCancel(true);
+        mBuilder.setAutoCancel(true);//点击通知可取消
         mBuilder.setTicker(title);
         mBuilder.setPriority(NotificationManagerCompat.IMPORTANCE_HIGH);//设置通知的优先级
         return mBuilder;
