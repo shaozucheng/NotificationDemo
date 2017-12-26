@@ -196,6 +196,28 @@ public class NotificationManager {
 
 
     /**
+     * 带有进度条的通知
+     *
+     * @param ctx     上下文
+     * @param title   标题
+     * @param message 内容信息
+     * @param intent  PendingIntent 这里做了一个下载安装的案例，实际情况如果不需要则可以不加PendingIntent 参数，点击通知就不会有跳转
+     * @return NotificationCompat.Builder
+     */
+    public static NotificationCompat.Builder showProgressNotify(Context ctx, String title, String message, PendingIntent intent) {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ctx, null);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        mBuilder.setContentTitle(title);
+        mBuilder.setContentText(message);
+        mBuilder.setContentIntent(intent);
+        mBuilder.setAutoCancel(true);
+        mBuilder.setTicker(title);
+        mBuilder.setPriority(NotificationManagerCompat.IMPORTANCE_HIGH);//设置通知的优先级
+        return mBuilder;
+    }
+
+
+    /**
      * 展示InboxStyle 通知
      *
      * @param ctx         上下文

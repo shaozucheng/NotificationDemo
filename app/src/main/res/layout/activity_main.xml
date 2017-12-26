@@ -91,5 +91,16 @@
             android:text="自定义带按钮的通知"
             android:textColor="#ffffff"/>
 
+        <TextView
+            android:id="@+id/button08"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="#368411"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="带进度条的通知"
+            android:textColor="#ffffff"/>
+
     </LinearLayout>
 </ScrollView>

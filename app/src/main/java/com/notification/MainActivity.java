@@ -1,9 +1,11 @@
 package com.notification;
 
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,6 +23,7 @@ import push.NotificationManager;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static int PROGRESS_NO_ID = 3;//进度条通知id
 
     @BindView(R.id.button01)
     TextView mButton01;
@@ -35,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick({R.id.button01, R.id.button02,
             R.id.button03, R.id.button04,
-            R.id.button05, R.id.button06})
+            R.id.button05, R.id.button06,
+            R.id.button07, R.id.button08})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button01://第一种方式
@@ -58,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.button07://自定义带按钮的通知
                 showCustomNotificationButton();
+                break;
+            case R.id.button08://带进度条的通知
+                showProgressNotification();
                 break;
         }
     }
@@ -180,6 +187,51 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, (new Random().nextInt(1000)),
                 resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationManager.showCustomNotification(this, contentViews, "ticker", resultPendingIntent);
+    }
+
+
+    /**
+     * 进度条通知
+     */
+    private void showProgressNotification() {
+        Intent resultIntent = new Intent(this, SecondActivity.class);
+        resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, (new Random().nextInt(1000)),
+                resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        final NotificationCompat.Builder builder = NotificationManager.showProgressNotify(this, "下载", "正在下载", resultPendingIntent);
+
+        Notification notification = builder.build();
+        notification.flags = Notification.FLAG_AUTO_CANCEL;//当通知被用户点击之后会自动被清除(cancel)
+        final android.app.NotificationManager notificationManager = (android.app.NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            //这里最好使用固定的id，因为如果通知id不固定的话，每次更新就会弹出多个通知
+            notificationManager.notify(PROGRESS_NO_ID, notification);
+        }
+        builder.setProgress(100, 0, false);
+        //下载以及安装线程模拟
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 100; i++) {
+                    builder.setProgress(100, i, false);
+                    notificationManager.notify(PROGRESS_NO_ID, builder.build());
+                    //下载进度提示
+                    builder.setContentText("下载" + i + "%");
+                    try {
+                        Thread.sleep(50);//演示休眠50毫秒
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                //下载完成后更改标题以及提示信息
+                builder.setContentTitle("开始安装");
+                builder.setContentText("安装中...");
+                //设置进度为不确定，用于模拟安装
+                builder.setProgress(0, 0, true);
+                notificationManager.notify(PROGRESS_NO_ID, builder.build());
+            }
+        }).start();
     }
 
 
